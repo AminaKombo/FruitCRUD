@@ -1,0 +1,10 @@
+CREATE DATABASE fruitseller;
+USE fruitseller;
+
+CREATE TABLE IF NOT EXISTS `fruit`(
+  fruitID INT(30) NOT NULL AUTO_INCREMENT,
+  fruit VARCHAR(255) NOT NULL,
+  
+  PRIMARY KEY(fruitID),
+  UNIQUE(fruit)
+);
