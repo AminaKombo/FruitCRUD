@@ -1,0 +1,151 @@
+#Fruit CRUD
+'''
+DATABASE fruitseller
+TABLE `fruit`(
+    fruitID INT(30) NOT NULL AUTO_INCREMENT,
+    fruit VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY(fruitID)
+)
+'''
+import pymysql
+import sys
+
+db=pymysql.connect("localhost","root","root","fruitseller")
+
+cursor=db.cursor()
+
+fruitlist=[]
+action=""
+
+def showFruit():
+    global fruitlist
+    print("\nFRUITS: ")
+    j=1
+    for fruit in fruitlist:
+        print(j,"-",fruit)
+        j+=1
+    print("------------------------------------------------------------------")
+    if(len(fruitlist)==0):
+        print("[list is empty]")
+
+
+def populateList():
+    global fruitlist, cursor, db
+    fruitlist=[]
+    sql="SELECT fruitID,fruit FROM fruit ORDER BY fruit ASC"
+    try:
+        cursor.execute(sql)
+        for fruit in cursor.fetchall():
+            fruitlist.append(fruit[1])
+    except:
+        print("Error fetching records")
+        db.rollback()
+
+
+def fruitExists(fruit):
+    global fruitlist, cursor, db
+    verdict=False
+    try:
+        cursor.execute("SELECT COUNT(*) FROM fruit WHERE fruit=%s",(fruit))
+        cn=cursor.fetchone()[0]
+        if(cn>0):
+            verdict=True
+    except:
+        db.rollback()
+    return verdict
+
+
+def addFruit(newfruit):
+    global fruitlist, db
+    cursor=db.cursor()
+    try:
+        fex=fruitExists(newfruit)
+        if(fex==False):
+            cursor.execute("INSERT INTO fruit(fruit) VALUES(%s)",(newfruit))
+            db.commit()
+        else:
+            print(newfruit, "exists")
+    except:
+        db.rollback()
+    populateList()
+
+
+def editFruit():
+    global cursor, db, fruitlist
+    index=-1
+    frlen=len(fruitlist)
+    while(index<0 or index>=frlen):
+        index=int(input("Enter index: "))-1
+    newname=""
+    print("Now editing:",fruitlist[index].upper())
+    while(newname==""):
+        newname=input("Enter new name: ")
+    newname=newname.lower()
+    fex=fruitExists(newname)
+    if(fex==False):
+        try:
+            cursor.execute("UPDATE fruit SET fruit=%s WHERE fruit=%s",\
+                           (newname,fruitlist[index]))
+            db.commit()
+            populateList()
+        except:
+            db.rollback()
+    else:
+        print(newname,"exists")
+
+
+def deleteFruit():
+    global cursor, db, fruitlist
+    index=-1
+    frlen=len(fruitlist)
+    while(index<0 or index>=frlen):
+        index=int(input("Enter index: "))-1
+    confirm=""
+    print("Up for deletion:",fruitlist[index].upper())
+    while(confirm==""):
+        confirm=input("Proceed? [Y=yes, anything else=no] ")
+    if(confirm.lower()=="y"):
+        try:
+            cursor.execute("DELETE FROM fruit WHERE fruit=%s",\
+                           (fruitlist[index]))
+            db.commit()
+            populateList()
+        except:
+            db.rollback()
+
+
+def startApp():
+    global fruitlist, action
+    if(len(fruitlist)<1):
+        populateList()
+    
+    showFruit()
+    optstring="Pick an option: [A=add, X=end program] " 
+    if(len(fruitlist)>0):
+        optstring="Pick an option: [A=add, E=edit, D=delete, X=end program] "
+    while(action==""):
+        action=input(optstring)
+
+    if(action.lower()=="a"):
+        newfruit=input("Name of fruit: ")
+        if(newfruit!=""):
+            addFruit(newfruit)
+            action=""
+        else:
+            action=""
+    elif(action.lower()=="e"):
+        editFruit()
+        action=""
+    elif(action.lower()=="d"):
+        deleteFruit()
+        action=""
+    elif(action.lower()=="x"):
+        exit()
+    
+    action=""
+    startApp()
+
+startApp()
+    
+db.close()
