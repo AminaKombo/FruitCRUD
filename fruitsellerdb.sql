@@ -1,3 +1,4 @@
+##DATABASE FOR FRUITCRUD
 CREATE DATABASE fruitseller;
 USE fruitseller;
 
