@@ -1,9 +1,9 @@
 # FruitCRUD
 Console-based CRUD in Python3, with PyMySQL database
 
-Create a database named 'fruitseller'
-Use the code in fruitsellerdb.sql to create the 'fruit' table
-Any variation in database name or table structure should be dealt with in fruitcrud.py
+<p>Create a database named 'fruitseller'</p>
+<p>Use the code in fruitsellerdb.sql to create the 'fruit' table</p>
+<p>Any variation in database name or table structure should be dealt with in fruitcrud.py</p>
 
 Dependencies:
 1. PyMySQL: https://github.com/PyMySQL/
