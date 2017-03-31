@@ -2,14 +2,16 @@
 Console-based CRUD in Python3, with PyMySQL database
 
 <h2>Dependencies:</h2>
-1. PyMySQL: https://github.com/PyMySQL/
-2. Python 3.6.1: https://www.python.org/downloads/release/python-361/
-
+<ol>
+<li>PyMySQL: https://github.com/PyMySQL/</li>
+<li>Python 3.6.1: https://www.python.org/downloads/release/python-361/</li>
+</ol>
+<hr />
 <h2>Setup:</h2>
 <p>Create a database named 'fruitseller'</p>
 <p>Use the code in fruitsellerdb.sql to create the 'fruit' table</p>
-<p>Any variation in database name or table structure should be dealt with in fruitcrud.py</p>
-
+<p>Any variation in database name or table structure should be dealt with in dbinfo.txt</p>
+<hr />
 <h2>How to use:</h2>
 <p>Clone or download this repo.</p>
 <p>Open your mysql server by command-line, workbench or however else</p>
@@ -36,6 +38,6 @@ Console-based CRUD in Python3, with PyMySQL database
 <h3>Deleting Fruit</h3>
 <p>Pick "d" as an option.</p>
 <p>Pick an index based on the numbers in the menu. You will be prompted until you give a number that's within range.</p>
-<p>The chosen entry is shown IN UPPERCASE LETTERS. Enter "y" to confirm deletion, or any other character to cancel.</p>
+<p>The chosen entry is shown IN UPPERCASE LETTERS. Enter "y" to confirm deletion, or "n" to cancel.</p>
 <p>If successful, the fruit is deleted and the "default" screen is shown.</p>
 
