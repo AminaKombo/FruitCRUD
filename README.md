@@ -17,11 +17,11 @@ Console-based CRUD in Python3, with PyMySQL database
 <p>Open your mysql server by command-line, workbench or however else</p>
 <p>Paste the fruitsellerdb.sql code into a query window.</p>
 <blockquote>TADAAA! Database!</blockquote>
-<p>Run fruitcrud.py by right-clicking and running in Python, or by command-line.</p>
+<p>Run main.py by right-clicking and running in Python, or by command-line.</p>
 
 <h2>How it works:</h2>
 <p>A list of fruit is displayed (in alphabetical order) from the fruit table in the fruitseller database. If empty, the app says so.</p>
-<p>Pick an option under the list. A=add, E=edit, D=delete, X=exit program.</p>
+<p>Pick an option under the list. A=add, E=edit, D=delete, X=end program.</p>
 <p>The "edit" and "delete" options are unavailable if the fruit table is empty.</p>
 <p>Options are converted to lowercase, so "A" and "a" are valid.</p>
 <h3>Adding Fruit</h3>
